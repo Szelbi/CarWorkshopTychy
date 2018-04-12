@@ -1,0 +1,76 @@
+﻿@model CarWorkshop.Database.Product
+
+@{
+    ViewBag.Title = "Edit";
+    List<CarWorkshop.Database.Category> categories = ViewData["categories"] as List<CarWorkshop.Database.Category>;
+}
+
+@Html.Partial("_PageHeader", "Szczegóły produktu")
+@using (Html.BeginForm("Edit", "Products", new { id = Model.ProductId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ProductId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Zdjęcie produktu", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="file" class="form-control" accept=".jpg, .jped, .png" />
+            <img src="@Url.Action("GetImage", "Products", new { @id = Model.ProductId, area="" })" style="max-width: 300px" />
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Kategoria produktu", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="form-control" name="productCategory">
+                <option hidden selected disabled></option>
+                @foreach (var c in categories)
+                {
+                    <option @(c.CategoryId.Equals(Model.CategoryId) ? "selected" :"") value="@c.CategoryId">@c.CategoryName</option>
+                }
+
+            </select>
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz zmiany" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Powrót do listy produktów", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,124 @@
+﻿@model CarWorkshop.Database.Order
+@{
+    ViewBag.Title = "Index";
+}
+@Html.Partial("_PageHeader", "Zamówienie " + Model.OrderId)
+<div id="checkout-summary">
+    <div class="row">
+        <div class="col-sm-3 text-right">
+            <b>Kontakt</b>
+        </div>
+        <div class="col-sm-9">
+            @Model.Email
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">
+            <b>Adres dostawy</b>
+        </div>
+        <div class="col-sm-9">
+            @Model.Name <br />
+            @Model.Address <br />
+            @Model.PostCode @Model.City
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3 text-right">
+            <b>Zamówienie</b>
+        </div>
+        <div class="col-sm-9">
+            @foreach (var o in Model.OrderProducts)
+            {
+                <div class="row">
+                    <div class="col-xs-12">
+                        @o.Product.ProductName - @o.Count szt.
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3 text-right">
+            <b>Typ dostawy</b>
+        </div>
+        <div class="col-sm-9">
+            @Model.DeliverType.Name
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3 text-right">
+            <b>Typ płatności</b>
+        </div>
+        <div class="col-sm-9">
+            @Model.PaymentType.Name
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3 text-right">
+            <b>Do zapłaty</b>
+        </div>
+        <div class="col-sm-9">
+            @Model.GetTotal() zł
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3 text-right">
+            <b>Status</b>
+        </div>
+        <div class="col-sm-9">
+            @CarWorkshop.Helpers.StatusHelper.StatusToString(Model.State)
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Zmień status <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    @if (Model.State != CarWorkshop.Database.OrderState.SENDED && Model.State != CarWorkshop.Database.OrderState.CLOSED)
+                    {
+                        <li><a href="@Url.Action("SendOrder", "Orders", new { @id = Model.OrderId })" class="action-button">Zmień status na Wysłany</a></li>
+                    }
+                    @if (Model.State != CarWorkshop.Database.OrderState.CLOSED)
+                    {
+                        <li><a href="@Url.Action("CloseOrder", "Orders", new { @id = Model.OrderId })" class="action-button">Zmień status na Zamknięty</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.action-button').click(function (e) {
+                e.preventDefault();
+                var href = $(this).attr('href');
+                bootbox.confirm({
+                    message: "Czy na pewno chcesz zmienić status zamówienia?",
+                    buttons: {
+                        confirm: {
+                            label: 'Tak',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Nie',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            window.location.href = href;
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+}

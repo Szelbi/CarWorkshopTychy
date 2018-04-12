@@ -1,0 +1,74 @@
+﻿@model CarWorkshop.Database.Order
+
+@{
+    ViewBag.Title = "Summary";
+}
+
+@Html.Partial("_PageHeader", "Podsumowanie zakupów")
+<div id="checkout-summary">
+    <div class="row">
+        <div class="col-sm-3 text-right">
+            <b>Rodzaj dostawy</b>
+        </div>
+        <div class="col-sm-9">
+            @CarWorkshop.Database.TypesRepository.GetDeliverTypeWithPrice(Model.DeliverTypeId)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">
+            <b>Rodzaj płatności</b>
+        </div>
+        <div class="col-sm-9">
+            @CarWorkshop.Database.TypesRepository.GetPaymentTypeWithPrice(Model.PaymentTypeId)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">
+            <b>Adres dostawy</b>
+        </div>
+        <div class="col-sm-9">
+            @Model.Name <br />
+            @Model.Address <br />
+            @Model.PostCode @Model.City
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3 text-right">
+            <b>Zamówienie</b>
+        </div>
+        <div class="col-sm-9">
+            @foreach (var o in Model.OrderProducts)
+            {
+                <div class="row">
+                    <div class="col-xs-12">
+                        @o.Product.ProductName - @o.Count szt.
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3 text-right">
+            <b>Do zapłaty</b>
+        </div>
+        <div class="col-sm-9">
+            @Model.GetTotal() zł
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+            <a class="btn btn-success" href="@Url.Action("Payment", "Checkout")">
+                Potwierdź zakup
+                @if (Model.PaymentTypeId == 1)
+                {
+                    <text>i przejdź do płatności</text>
+
+                }
+            </a>
+            <a href="@Url.Action("Cancel","Checkout")" class="btn btn-danger">Zrezygnuj z zakupów</a>
+        </div>
+    </div>
+</div>
+

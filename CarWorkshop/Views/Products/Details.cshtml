@@ -1,0 +1,39 @@
+﻿@model CarWorkshop.Database.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="prduct-details">
+    @Html.Partial("_PageHeader", "Szczegóły produktu")
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>@Model.ProductName</h1>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-4">
+            <img src="@Url.Action("GetImage", "Products", new { @id=Model.ProductId })" style="width: 100%"  />
+        </div>
+        <div class="col-sm-8">
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-sm-3"><b>Kategoria</b></div>
+                <div class="col-sm-9">@Model.Category.CategoryName</div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-sm-3"><b>Opis</b></div>
+                <div class="col-sm-9">@Model.Description</div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-sm-3"><b>Cena</b></div>
+                <div class="col-sm-9">@Model.Price zł</div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-sm-12"><button class="btn btn-success w-100 add-to-cart" data-product="@Model.ProductId"> Dodaj do koszyka</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

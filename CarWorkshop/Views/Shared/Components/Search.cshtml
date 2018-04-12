@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<div class="row">
+    <div class="col-xs-12" style="margin-bottom: 15px">
+        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+        {
+            <input type="text" name="search" value="" id="search" class="form-control" placeholder="Wyszukaj..." />
+        }
+    </div>
+</div>
+

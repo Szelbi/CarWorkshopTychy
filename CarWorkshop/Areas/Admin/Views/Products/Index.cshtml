@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CarWorkshop.Database.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="admin-products-list">
+    @Html.Partial("_PageHeader", "Lista produktów")
+    <div class="row">
+        <div class="col-xs-12 text-right" style="margin-bottom: 10px;">
+            <a href="@Url.Action("Create")" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj nowy produkt</a>
+        </div>
+    </div>
+    @Html.Partial("Search")
+    <table class="table table-responsive table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th style="width: 20%"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="table-item">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @item.Price zł
+                </td>
+                <td class="actions text-right">
+                    <a href="@Url.Action("Edit", new { id = item.ProductId })" class="btn btn-primary btn-xs">Edytuj</a>
+                    <a href="@Url.Action("Delete", new { id = item.ProductId })" class="btn btn-danger btn-xs">Usuń</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

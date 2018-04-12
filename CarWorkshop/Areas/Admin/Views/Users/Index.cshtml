@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CarWorkshop.Database.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+    var db = new CarWorkshop.Database.DatabaseContext();
+}
+
+@Html.Partial("_PageHeader", "Lista użytkowników")
+<table class="table">
+    <tr>
+        <th>
+            Email
+        </th>
+        <th>
+            Rola
+        </th>
+        <th>
+            Ilość zamówień
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var orders = new CarWorkshop.Database.OrderRepository(db).UserOrders(item.Id).Count;
+        <tr>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @if (item.Roles.Count == 0)
+                {
+                    <text>Użytkownik</text>
+                }
+                else
+                {
+                    <text>Administrator</text>
+                }
+            </td>
+            <td>
+                @orders
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,16 @@
+﻿@model string
+@{
+    ViewBag.Title = "OrderConfirmation";
+}
+
+@Html.Partial("_PageHeader", "Potwierdzenie złożenia zamówienia")
+<div id="">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-success text-center">
+                <h1>Twoje zamówienie @Model zostało złożone! Czekaj na dalsze informacje.</h1>
+            </div>
+            
+        </div>
+    </div>
+</div>

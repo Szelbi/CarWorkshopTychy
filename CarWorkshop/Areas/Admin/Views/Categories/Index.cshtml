@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CarWorkshop.Database.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="admin-categories-list">
+    @Html.Partial("_PageHeader", "Lista kategori")
+
+    <div class="row">
+        <div class="col-xs-12 text-right" style="margin-bottom: 10px;">
+            <a href="@Url.Action("Create")" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Dodaj nową kategorię</a>
+        </div>
+    </div>
+    <table class="table table-responsive table-hover">
+        <tr>
+            <th>
+                Nazwa kategorii
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="category table-item">
+                <td style="width: 85%">
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td style="width: 15%" class="text-right category-actions actions">
+                    <a href="@Url.Action("Edit", new { id = item.CategoryId })" class="btn btn-primary btn-xs">Edytuj</a>
+                    <a href="@Url.Action("Delete", new { id = item.CategoryId })" class="btn btn-danger btn-xs">Usuń</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,40 @@
+﻿<div class="row" id="footer">
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <img src="~/Content/images/logo.png" />
+                <h3>Strona</h3>
+                <div>
+                    <a href="@Url.Action("Index", "Home")">Strona główna</a>
+                </div>
+                <div>
+                    <a href="@Url.Action("About", "Home")">O nas</a>
+                </div>
+                <div>
+                    <a href="@Url.Action("TermsAndConditions", "Home")">Regulamin</a>
+                </div>
+                <div>
+                    <a href="@Url.Action("Contact", "Home")">Kontakt</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <img src="~/Content/images/logo.png" />
+                <h3>Zamówienia</h3>
+                <div>
+                    <a href="@Url.Action("Index", "ShoppingCart")">Koszyk</a>
+                </div>
+                <div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <a href="@Url.Action("Index", "Orders")"> Moje zamówienia</a>
+                    }
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

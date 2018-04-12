@@ -1,0 +1,11 @@
+﻿@model CarWorkshop.Database.Product
+<div class="product">
+    <div class="productImage text-center" style="height: 200px; background-position: center; background-size: contain; background-repeat: no-repeat; background-image: url(@Url.Action("GetImage", "Products", new { @id=Model.ProductId, maxWidth=600, maxHeight= 400 }))">
+    </div>
+    <div class="productName searchable">@Model.ProductName</div>
+    <div class="productPrice searchable">@Model.Price PLN</div>
+    <div class="productButtons">
+        <a  class="btn btn-primary w-100" style="margin-bottom: 5px" href="@Url.Action("Details", "Products", new { @id=Model.ProductId })">Szczegóły</a>
+        <button class="btn btn-default w-100 add-to-cart" data-product="@Model.ProductId"> Dodaj do koszyka</button>
+    </div>
+</div>

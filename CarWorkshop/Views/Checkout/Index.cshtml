@@ -1,0 +1,64 @@
+﻿@model CarWorkshop.Models.ShoppingCart
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="shoppingcart-index">
+    @Html.Partial("_PageHeader", "Podsumowanie zakupów")
+    <div class="cart-container">
+        <table class="table table-responsive table-hover">
+            <tr>
+                <th style="width: 70%">
+                    Nazwa produktu
+                </th>
+                <th style="width: 15%">
+                    Ilość
+                </th>
+                <th style="width: 10%">
+                    Cena
+                </th>
+                <th style="width: 5%">
+
+                </th>
+            </tr>
+
+            @foreach (var product in Model.products)
+            {
+                <tr class="table-item">
+                    <td>
+                        @product.Product.ProductName
+                    </td>
+                    <td>
+                        <button class="btn btn-danger shoppingCart-removeCount" data-product="@product.Product.ProductId">-</button>
+                        <div class="btn btn-default">
+                            @product.Count
+                        </div>
+
+                        <button class="btn btn-primary shoppingCart-addCount" data-product="@product.Product.ProductId">+</button>
+                    </td>
+                    <td>
+                        @product.Product.Price zł
+                    </td>
+                    <td class="actions text-right">
+                        <button class="btn btn-danger shoppingCart-removeItem" data-product="@product.Product.ProductId">Usuń</button>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="2" class="text-right"><b>Suma</b></td>
+                <td>
+                    @Model.GetTotal() zł
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+          
+        }
+    </script>
+}

@@ -1,0 +1,35 @@
+﻿@model List<CarWorkshop.Database.Product>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (ViewData["search"] != null)
+{
+    @Html.Partial("_PageHeader", "Wyniki wyszukiwania")
+}
+else
+{
+    @Html.Partial("_PageHeader", "Ostatnio dodane")
+}
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.Partial("Components/Categories")
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        @Html.Partial("Components/Search")
+        <div class="row">
+            @foreach (var p in Model)
+            {
+                <div class="col-md-4 col-sm-6">
+                    @Html.Partial("Components/ProductBox", p)
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@{
+    var categories = new CarWorkshop.Database.CategoryRepository(new CarWorkshop.Database.DatabaseContext()).List();
+    var categoryId = TempData["categoryId"] != null ? Convert.ToInt32(TempData["categoryId"]) : 0;
+}
+<div class="categories">
+    <div class="categoriesHeader">
+        Kategorie
+    </div>
+    <div>
+        <div class="category">
+            <a href="@Url.Action("Category", "Products", new { @id=0})" style="@(categoryId.Equals(0) ? "font-weight: bold" : "")"><i class="fa fa-chevron-right" aria-hidden="true"></i> <span>Nowości</span></a>
+        </div>
+        @foreach (var category in categories)
+        {
+            <div class="category">
+                <a href="@Url.Action("Category", "Products", new { @id=category.CategoryId })" style="@(categoryId.Equals(category.CategoryId) ? "font-weight: bold" : "")"><i class="fa fa-chevron-right" aria-hidden="true"></i> <span>@category.CategoryName</span></a>
+            </div>
+        }
+    </div>
+</div>

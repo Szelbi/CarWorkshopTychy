@@ -1,0 +1,55 @@
+﻿@model CarWorkshop.Models.ShoppingCart
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="shoppingcart-index">
+    @Html.Partial("_PageHeader", "Koszyk zakupowy")
+    @if(TempData["cart_error"] != null)
+    {
+    <div class="alert alert-warning">
+        @TempData["cart_error"].ToString()
+    </div>
+    }
+    
+    <div class="cart-container">
+        @Html.Partial("~/Views/ShoppingCart/Components/_shoppingCartTable.cshtml", Model)
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.shoppingCart-removeItem', function () {
+                var id = $(this).attr('data-product');
+                $.get('/shoppingcart/RemoveFromCart/' + id, function () {
+                    refreshCart();
+                })
+            });
+
+            $(document).on('click', '.shoppingCart-removeCount', function () {
+                var id = $(this).attr('data-product');
+                $.get('/shoppingcart/RemoveFromCart/' + id + "?onlyCount=true", function () {
+                    refreshCart();
+                })
+            });
+
+            $(document).on('click', '.shoppingCart-addCount', function () {
+                var id = $(this).attr('data-product');
+                $.get('/shoppingcart/AddToCart/' + id, function () {
+                    refreshCart();
+                    
+                })
+            });
+        });
+
+        function refreshCart() {
+            updateCartCount();
+            $.get("/shoppingcart/RefreshCart", function (content) {
+                $('.cart-container').html(content);
+            });
+        }
+    </script>
+}

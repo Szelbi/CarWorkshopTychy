@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li>
+                <a href="@Url.Action("Index", "ShoppingCart")"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Koszyk (<span class="cart-count">@CarWorkshop.Models.ShoppingCart.GetItemCount()</span>)</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Orders")">@CarWorkshop.Helpers.EmailHelper.GetUsernameFromEmail(User.Identity.Name)</a>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="@Url.Action("Index", "ShoppingCart")"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Koszyk (<span class="cart-count">@CarWorkshop.Models.ShoppingCart.GetItemCount()</span>)</a>
+        </li>
+        <li>@Html.ActionLink("Zarejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
