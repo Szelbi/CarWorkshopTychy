@@ -280,6 +280,7 @@
     <Content Include="Content\base.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\footer.jpg" />
     <Content Include="Content\images\image.png" />
     <Content Include="Content\images\logo.png" />
@@ -319,10 +320,6 @@
     <Content Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Sidebar.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Search.cshtml" />
-    <None Include="compilerconfig.json" />
-    <None Include="compilerconfig.json.defaults">
-      <DependentUpon>compilerconfig.json</DependentUpon>
-    </None>
     <None Include="Properties\PublishProfiles\CarWorkshop - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -396,7 +393,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Clients\" />
-    <Folder Include="Views\Dotpay\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\fonts\glyphicons-halflings-regular.woff" />

@@ -20,7 +20,7 @@ namespace CarWorkshop.Controllers
         {
             var products = _pr.List();
             products.Reverse();
-            return View(products.Take(7).ToList());
+            return View(products.Take(9).ToList());
         }
 
         public ActionResult TermsAndConditions()
